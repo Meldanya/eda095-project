@@ -1,5 +1,8 @@
+package gui;
 import java.awt.Color;
 import java.awt.Component;
+
+import model.Picture;
 
 
 public class StatusPanel extends Component {

@@ -1,7 +1,10 @@
+package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JPanel;
+
+import model.Picture;
 
 
 public class ControlPanel extends JPanel {

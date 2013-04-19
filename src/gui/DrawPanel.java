@@ -1,3 +1,4 @@
+package gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -7,6 +8,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
+
+import model.LineSegment;
+import model.Picture;
+import model.Point;
 
 public class DrawPanel extends JPanel implements MouseMotionListener, MouseListener, Observer {
 	

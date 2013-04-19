@@ -1,6 +1,9 @@
+package gui;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+
+import model.Picture;
 
 
 public class ButtonsPanel extends JPanel {
