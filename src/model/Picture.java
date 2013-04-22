@@ -11,6 +11,7 @@ public class Picture extends Observable {
 
 	private List<LineSegment> segments;
 	private Color color;
+	private int thickness;
 	
 	public Picture() {
 		segments = new ArrayList<LineSegment>();
@@ -28,6 +29,7 @@ public class Picture extends Observable {
 	public void addSegment(LineSegment ls) {
 		segments.add(ls);
 		ls.setColor(color);
+		ls.setThickness(thickness);
 	}
 	
 	public void draw(Graphics g) {
@@ -42,6 +44,19 @@ public class Picture extends Observable {
 		segments.clear();
 		setChanged();
 		notifyObservers();
+	}
+
+	public void undo() {
+		if (segments.size() > 0) {
+			segments.remove(segments.size() - 1);
+			setChanged();
+			notifyObservers();
+		}
+	}
+
+	public void setThickness(int i) {
+		thickness = i;
+		
 	}
 	
 }

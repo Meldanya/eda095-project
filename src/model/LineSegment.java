@@ -7,6 +7,7 @@ import java.util.List;
 public class LineSegment {
 
 	private Color color;
+	private int thickness;
 	private List<Point> points;
 
 	public LineSegment() {
@@ -17,7 +18,7 @@ public class LineSegment {
 		Color oldColor = g.getColor();
 		g.setColor(color);
 		for (int i = 0; i < points.size() - 1; i++) {
-			points.get(i).drawTo(points.get(i + 1), g);
+			points.get(i).drawTo(points.get(i + 1), g, thickness);
 		}
 		g.setColor(oldColor);
 	}
@@ -28,6 +29,10 @@ public class LineSegment {
 
 	public void setColor(Color color) {
 		this.color = color;		
+	}
+
+	public void setThickness(int thickness) {
+		this.thickness = thickness;		
 	}
 
 }

@@ -1,5 +1,7 @@
 package gui;
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
@@ -10,6 +12,7 @@ public class GUI extends JFrame {
 	
 	public GUI() {
 		super("GUI");
+		
 		setSize(400, 400);
 		
 		setLayout(new BorderLayout());
