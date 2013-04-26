@@ -25,10 +25,6 @@ public class DrawPanel extends JPanel implements Observer {
 		addMouseListener(new PressListener());
 	}
 	
-	public void clear() {
-		p.clear();
-	}
-	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
