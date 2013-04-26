@@ -10,10 +10,12 @@ public class LineSegment {
 	private int thickness;
 	private List<Point> points;
 
-	public LineSegment() {
+	public LineSegment(Color color, int thickness) {
 		points = new ArrayList<Point>();
+		this.color = color;
+		this.thickness = thickness;
 	}
-
+	
 	public void draw(Graphics g) {
 		Color oldColor = g.getColor();
 		g.setColor(color);
@@ -26,13 +28,4 @@ public class LineSegment {
 	public void addPoint(Point p) {
 		points.add(p);
 	}
-
-	public void setColor(Color color) {
-		this.color = color;		
-	}
-
-	public void setThickness(int thickness) {
-		this.thickness = thickness;		
-	}
-
 }

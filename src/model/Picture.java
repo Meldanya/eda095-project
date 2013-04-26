@@ -1,7 +1,6 @@
 package model;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -26,15 +25,19 @@ public class Picture extends Observable {
 		return color;
 	}
 	
-	public void addSegment(LineSegment ls) {
-		segments.add(ls);
-		ls.setColor(color);
-		ls.setThickness(thickness);
+	public void newLine() {
+		segments.add(new LineSegment(color, thickness));
 	}
 	
-	public void draw(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
+	public void addPoint(Point p) {
+		if (segments.size() > 0)
+			segments.get(segments.size() - 1).addPoint(p);
 		
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void draw(Graphics g) {		
 		for (LineSegment ls : segments) {
 			ls.draw(g);
 		}
@@ -56,7 +59,6 @@ public class Picture extends Observable {
 
 	public void setThickness(int i) {
 		thickness = i;
-		
 	}
 	
 }

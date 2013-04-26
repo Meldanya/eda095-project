@@ -1,34 +1,32 @@
 package gui;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseMotionAdapter;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import model.LineSegment;
 import model.Picture;
 import model.Point;
 
-public class DrawPanel extends JPanel implements MouseMotionListener, MouseListener, Observer {
+public class DrawPanel extends JPanel implements Observer {
 	
 	private Picture p;
-	private LineSegment ls;
 	
 	public DrawPanel(Picture p) {
 		this.p = p;
 		p.addObserver(this);
 		setBackground(Color.WHITE);
-		addMouseMotionListener(this);
-		addMouseListener(this);
+		
+		addMouseMotionListener(new DragListener());
+		addMouseListener(new PressListener());
 	}
 	
 	public void clear() {
 		p.clear();
-		repaint();
 	}
 	
 	@Override
@@ -38,53 +36,22 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent me) {
-		if (ls != null) {
-			ls.addPoint(new Point(me.getX(), me.getY()));
-		}
-		repaint();
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent me) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		ls = new LineSegment();
-		p.addSegment(ls);
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-
-		
-	}
-
-	@Override
 	public void update(Observable arg0, Object arg1) {
 		repaint();
-		
+	}
+	
+	private class PressListener extends MouseAdapter {
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			p.newLine();
+		}
+	}
+	
+	private class DragListener extends MouseMotionAdapter {
+		@Override
+		public void mouseDragged(MouseEvent me) {
+			p.addPoint(new Point(me.getX(), me.getY()));
+		}
 	}
 
 }
