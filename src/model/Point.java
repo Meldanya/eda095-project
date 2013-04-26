@@ -20,6 +20,14 @@ public class Point {
 		g2.drawLine(x, y, p.x, p.y);
 		
 	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
 
 
 }
