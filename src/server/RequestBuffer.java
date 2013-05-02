@@ -18,16 +18,20 @@ public class RequestBuffer {
 		// buffer full, wait
 		while(buffer.size()>= BUFFER_MAX_SIZE) wait();		
 		// buffer empty, notify since someone might be waiting to pop
-		if(buffer.isEmpty()) notifyAll();
+		boolean wasEmpty = buffer.isEmpty();
 		buffer.offer(client);
+		if(wasEmpty) notifyAll();
 	}
 	
 	public synchronized Socket pop() throws InterruptedException {
 		// buffer empty, wait
 		while(buffer.isEmpty()) wait();
 		// buffer was full but probably wont be after this operation.
-		if(buffer.size()>= BUFFER_MAX_SIZE) notifyAll();		
-		return buffer.poll();
+		boolean wasFull = buffer.size()>= BUFFER_MAX_SIZE;
+		Socket s = buffer.poll();
+		if (wasFull)
+			notifyAll();
+		return s;
 	}
 
 }
