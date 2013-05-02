@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="eda095-project" basedir="." default="compile">
+	<description>
+		Build script for the project in the course EDA095 on LTH, Lund University.
+	</description>
+
+	<!-- *** Global Variables *** -->
+	<property name="project.name" value="eda095-project" />
+	<property name="path.source" value="src" />
+	<property name="path.destination" value="bin" />
+	<property name="main.client" value="client/Client" />
+	<property name="main.server" value="server/Server" />
+
+	<!-- Library versions in use. Please update path externalLibs if you add/remove from here.-->
+	<!-- <property name="junit" value="junit-4.10.jar" />-->
+
+	<!-- *** Paths *** -->
+	<!-- <path id="externalLibs">-->
+	<!--     <fileset dir="${path.library}">-->
+	<!--         <include name="${junit}" />-->
+	<!--     </fileset>-->
+	<!-- </path>-->
+
+	<!-- <path id="classpath.tests">-->
+	<!--     <pathelement location="${path.destination}" />-->
+	<!-- </path>-->
+
+	
+	<!-- *** Targets *** -->
+	<!-- Here all targets exists. -->
+
+	<target name="compile" depends="clean" description="Compile the sources to the destination.">
+		<mkdir dir="bin" />
+		<javac destdir="${path.destination}" includeantruntime="false">
+			<src path="${path.source}" />
+			<!-- <classpath refid="externalLibs" />-->
+		</javac>
+	</target>
+
+	<!-- <target name="release" depends="distribute,test" description="Make a full release.">-->
+	<!--     <property prefix="svn" file="svn.properties" />-->
+	<!--     <property name="jarName" value="${path.release}/${project.name}-${svn.Revision}.jar" />-->
+	<!--     <echo message="A full release was successfully created!" />-->
+	<!--     <echo message="File: ${jarName}" />-->
+	<!-- </target>-->
+
+	<!-- <target name="distribute" depends="compile,svnrev,doc" description="Make a releaseable JAR.">-->
+
+	<!--     <property prefix="svn" file="svn.properties" />-->
+	<!--     <property name="jarName" value="${path.release}/${project.name}-${svn.Revision}.jar" />-->
+	<!--     <delete file="${jarName}" />-->
+
+	<!--     <jar destfile="${jarName}" update="no" excludes="**/.svn/**">-->
+	<!--         <zipgroupfileset dir="${path.library}">-->
+	<!--             <include name="**/*.jar" />-->
+	<!--         </zipgroupfileset>-->
+	<!--         <fileset dir="${path.documentation}" includes="**/*" />-->
+	<!--         <fileset dir="${path.destination}" includes="**/*.class" />-->
+	<!--         <manifest>-->
+	<!--             <attribute name="Main-class" value="${path.mainclass}" />-->
+	<!--         </manifest>-->
+	<!--     </jar>-->
+	<!-- </target>-->
+
+	<target name="clean" description="Delete old binaries and text files.">
+		<delete includeemptydirs="true" quiet="true"> 
+			<fileset dir="${path.destination}" includes="**/*" />
+			<fileset dir="${path.documentation}" includes="**/*" />
+		</delete>
+		<delete file="${project.svnver}" />
+	</target>
+
+	<!-- <target name="test" description="Run JUnit tests and stop build if one fails.">-->
+	<!--     <junit printsummary="true" fork="yes" haltonfailure="true">-->
+	<!--         <formatter type="plain" usefile="no" />-->
+	<!--         <classpath refid="classpath.tests" />-->
+	<!--         <classpath refid="externalLibs" />-->
+
+	<!--         <batchtest>-->
+	<!--             <fileset dir="${path.destination}/" includes="${path.test}/**/**Test**.class" />-->
+	<!--         </batchtest>-->
+	<!--     </junit>-->
+	<!-- </target>-->
+
+	<!-- <target name="doc" description="Generate javadocs from sourcefiles">-->
+	<!--     <mkdir dir="${path.documentation}" />-->
+	<!--     <javadoc destdir="${path.documentation}" author="true" version="true" use="true" doctitle="${project.name} Documentation" windowtitle="${project.name} Documentation" bottom="Documentation produly presented by the authors ${project.authors}." encoding="UTF-8">-->
+	<!--         <fileset dir="${path.source}">-->
+	<!--             <include name="**/*.java" />-->
+	<!--             <exclude name="**/*Test*.java" />-->
+	<!--         </fileset>-->
+	<!--         <link href="http://download.oracle.com/javase/6/docs/api/" />-->
+	<!--         <link href="http://opencsv.sourceforge.net/api/" />-->
+	<!--     </javadoc>-->
+
+	<!-- </target>-->
+
+	<!-- <target name="svnrev" description="Write svn info to file.">-->
+	<!--     <exec executable="svn" output="${project.svnver}">-->
+	<!--         <arg value="info" />-->
+	<!--     </exec>-->
+	<!--     <property prefix="svn" file="svn.properties" />-->
+	<!--     <echo message="Using SVN revision: ${svn.Revision}." />-->
+	<!-- </target>-->
+</project>

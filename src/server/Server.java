@@ -24,12 +24,17 @@ public class Server extends Thread {
 		Socket socket;
 		ClientHandlerThread client;
 		while (true) {
-			System.out.println("Waiting for client");
-			socket = ss.accept();
-			client = new ClientHandlerThread(socket);
-			clients.add(client);
-			System.out.println("Got client!");
-			client.start();
+			try {
+				System.out.println("Waiting for client");
+				socket = ss.accept();
+				client = new ClientHandlerThread(socket);
+				clients.add(client);
+				System.out.println("Got client!");
+				client.start();
+			} catch (IOException e) {
+				System.err.println("Failed to accept client:");
+				e.printStackTrace();
+			}
 		}
 	}
 
