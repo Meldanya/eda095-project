@@ -2,10 +2,13 @@ package server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 
-public class Server {
+public class Server extends Thread {
 	private int port;
 	private ServerSocket ss;
+	private ArrayList<ClientHandlerThread> clients;
 
 	public Server(int port) {
 		this.port = port;
@@ -14,6 +17,19 @@ public class Server {
 			System.out.println("Listening for connection");
 		} catch (IOException e) {
 			System.err.println("Failed to open server socket.");
+		}
+	}
+
+	public void run() {
+		Socket socket;
+		ClientHandlerThread client;
+		while (true) {
+			System.out.println("Waiting for client");
+			socket = ss.accept();
+			client = new ClientHandlerThread(socket);
+			clients.add(client);
+			System.out.println("Got client!");
+			client.start();
 		}
 	}
 
