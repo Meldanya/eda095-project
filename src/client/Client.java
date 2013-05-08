@@ -16,7 +16,7 @@ public class Client {
 	public Client(String host, int port, boolean sendMode) {
 		Socket s = null;
 		try {
-			if (sendMode) {
+			if (!sendMode) {
 				System.out.println("Listening for connection");
 				ServerSocket ss = new ServerSocket(port);
 				s = ss.accept();

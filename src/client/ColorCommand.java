@@ -29,7 +29,8 @@ public class ColorCommand implements DrawingCommand {
 		dos.writeShort(c.getGreen());
 		dos.writeShort(c.getBlue());
 		
-		dos.writeByte(Protocol.END);		
+		dos.writeByte(Protocol.END);	
+		System.out.println("sending colorcmd");
 	}
 
 	@Override
