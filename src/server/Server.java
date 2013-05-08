@@ -3,36 +3,24 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Server {
 
-	public static final int THREAD_POOL_SIZE = 4;
-	
 	private ServerSocket serversocket = null;
-	private List<RequestHandler> pool = null;
-	private RequestBuffer jobs = null;
-	
+	private GamePlay gamePlay;
 	
 	public Server(int port) throws IOException {
 		serversocket = new ServerSocket(port);
-		pool = Collections.synchronizedList(new ArrayList<RequestHandler>());
-		jobs = new RequestBuffer();
-		
-		// create thread pool
-		for( int i = 0; i < THREAD_POOL_SIZE; i++ ) {
-			RequestHandler rh = new RequestHandler(jobs);
-			rh.start();
-			pool.add(rh);
-		}		
+		gamePlay = new GamePlay();
 	}
 
 	public void run() throws IOException, InterruptedException {
-		while(true){
+		while(true) {
 			Socket client = serversocket.accept();
-			jobs.push(client);
+			gamePlay.addClient(client);
+			ClientConnectionHandler rh = new ClientConnectionHandler(client, gamePlay);
+			rh.start();
+			System.out.println("Got client");
 		}
 	}
 
@@ -49,7 +37,7 @@ public class Server {
 
 		try {
 			new Server(port).run();
-		} catch (IOException | InterruptedException e) {
+		} catch (Exception e) {
 			System.err.println("Server closed unexpectedly: " + e.getMessage());
 		}
 	}
