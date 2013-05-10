@@ -9,16 +9,19 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import client.PictureWrapper;
+
 import model.Picture;
+import model.PictureModel;
 import model.Point;
 
 public class DrawPanel extends JPanel implements Observer {
 	
-	private Picture p;
+	private PictureWrapper p;
 	
-	public DrawPanel(Picture p) {
+	public DrawPanel(PictureWrapper p) {
 		this.p = p;
-		p.addObserver(this);
+		p.getModel().addObserver(this);
 		setBackground(Color.WHITE);
 		
 		addMouseMotionListener(new DragListener());

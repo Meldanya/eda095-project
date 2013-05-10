@@ -6,12 +6,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import model.Picture;
+import model.PictureModel;
 
 public class Client {
-
-	private GUI gui;
-	private Picture picture;
 
 	public Client(String host, int port, boolean sendMode) {
 		Socket s = null;
@@ -30,8 +27,8 @@ public class Client {
 		
 		try {
 			DrawingMonitor monitor = new DrawingMonitor(s.getOutputStream());
-			picture = new Picture(monitor, sendMode);
-			gui = new GUI(picture);
+			PictureWrapper picture = new PictureWrapper(monitor, new PictureModel(), sendMode);
+			GUI gui = new GUI(picture);
 			new ReceiverThread(picture, s.getInputStream()).start();
 			new SendThread(monitor).start();
 		} catch (IOException e) {

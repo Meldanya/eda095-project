@@ -3,16 +3,20 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import model.Pen;
 import model.Picture;
 
 
-public class ColorSelector extends JPanel {
+public class ColorSelector extends JPanel implements Observer {
 	
 	private Picture picture;
+	private Pen pen;
 	private Color color;
 	private ColorPanel cp;
 	
@@ -23,13 +27,12 @@ public class ColorSelector extends JPanel {
 		addMouseListener(new MyListener());
 		addMouseMotionListener(new MyMotionListener());
 		setBackground(color);
-		
+		pen = picture.getPen();
+		pen.addObserver(this);		
 	}
 	
 	public void select() {
 		picture.setColor(color);
-		cp.clearColorSelection();
-		setBorder(BorderFactory.createLineBorder(Color.black, 2));
 	}
 	
 	public void clearSelection() {
@@ -47,6 +50,14 @@ public class ColorSelector extends JPanel {
 		@Override
 		public void mouseDragged(MouseEvent arg0) {
 			select();
+		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if (pen.getColor().equals(color)) {
+			cp.clearColorSelection();
+			setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		}
 	}
 
