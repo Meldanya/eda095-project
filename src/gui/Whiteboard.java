@@ -11,9 +11,6 @@ public class Whiteboard extends JPanel {
 	public Whiteboard(PictureWrapper p) {
 		setLayout(new BorderLayout());
 		
-//		JPanel mainLayout = new JPanel();
-//		mainLayout.setLayout(new BorderLayout());
-		
 		DrawPanel dp = new DrawPanel(p);
 		
 		add(new ControlPanel(p), BorderLayout.NORTH);

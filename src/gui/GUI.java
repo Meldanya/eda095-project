@@ -15,14 +15,11 @@ public class GUI extends JFrame {
 		setSize(500, 500);
 		
 		setLayout(new BorderLayout());
-		
-		DrawPanel dp = new DrawPanel(p);
-		
 		add(new Whiteboard(p), BorderLayout.CENTER);
 		add(new GuessPanel(), BorderLayout.SOUTH);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);		
+		setVisible(true);
 	}
 
 }
