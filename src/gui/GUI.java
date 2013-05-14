@@ -11,26 +11,18 @@ public class GUI extends JFrame {
 	
 	public GUI(PictureWrapper p) {
 		super("GUI");
-		
-		setSize(400, 400);
+		setResizable(false);
+		setSize(500, 500);
 		
 		setLayout(new BorderLayout());
 		
-		JPanel mainLayout = new JPanel();
-		mainLayout.setLayout(new BorderLayout());
-		
 		DrawPanel dp = new DrawPanel(p);
 		
-		mainLayout.add(new ControlPanel(p), BorderLayout.NORTH);
-		mainLayout.add(dp, BorderLayout.CENTER);
-		mainLayout.add(new StatusPanel(p), BorderLayout.SOUTH);
-		setVisible(true);
-		
-		add(mainLayout, BorderLayout.CENTER);
+		add(new Whiteboard(p), BorderLayout.CENTER);
 		add(new GuessPanel(), BorderLayout.SOUTH);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		setVisible(true);		
 	}
 
 }
