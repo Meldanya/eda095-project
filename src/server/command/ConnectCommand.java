@@ -7,13 +7,13 @@ public class ConnectCommand extends Command {
 
 	@Override
 	public void handle() throws IOException {
-		DataInputStream dis = new DataInputStream(client.getInputStream());
+		DataInputStream dis = new DataInputStream(player.getInputStream());
 
 		String name = dis.readUTF();
 		dis.readByte();
 
 		System.out.println("Got new name: " + name);
-		client.setName(name);
+		player.setName(name);
 	}
 
 }

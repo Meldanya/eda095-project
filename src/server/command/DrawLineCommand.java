@@ -4,7 +4,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Set;
 
-import server.Connection;
+import server.Player;
 
 import common.Protocol;
 
@@ -12,12 +12,12 @@ public class DrawLineCommand extends Command {
 
 	@Override
 	public void handle() throws IOException {
-		client.getInputStream().read();
+		player.getInputStream().read();
 
-		Set<Connection> clients = gamePlay.getClients();
-		for (Connection c : clients) {
-			if (!c.equals(client)) {
-				DataOutputStream dos = new DataOutputStream(c.getOutputStream());
+		Set<Player> players = gamePlay.getPlayers();
+		for (Player p : players) {
+			if (!p.equals(player)) {
+				DataOutputStream dos = new DataOutputStream(p.getOutputStream());
 
 				dos.writeByte(Protocol.DRAW_LINE_START);
 				dos.writeByte(Protocol.END);

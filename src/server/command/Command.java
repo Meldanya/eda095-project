@@ -3,25 +3,23 @@ package server.command;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import server.Connection;
 import server.GamePlay;
+import server.Player;
 
 import common.Protocol;
 
-
-
 public abstract class Command {
-	protected Connection client;
+	protected Player player;
 	protected GamePlay gamePlay;
-	
-	protected void set(Connection c, GamePlay g) {
-		this.client = c;
+
+	protected void set(Player player, GamePlay g) {
+		this.player = player;
 		this.gamePlay = g;
 	}
 
-	public static final Command create(Connection client, GamePlay gamePlay) throws IOException {
+	public static final Command create(Player player, GamePlay gamePlay) throws IOException {
 		Command command;
-		DataInputStream dis = new DataInputStream(client.getInputStream());
+		DataInputStream dis = new DataInputStream(player.getInputStream());
 		byte b = dis.readByte();
 		System.out.println("Got command: " + b);
 		switch (b) {
@@ -48,7 +46,7 @@ public abstract class Command {
 			break;
 		}
 
-		command.set(client, gamePlay);
+		command.set(player, gamePlay);
 
 		return command;
 	}

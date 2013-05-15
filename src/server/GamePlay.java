@@ -1,46 +1,47 @@
 package server;
 
 import java.util.HashSet;
-import java.util.Observable;
 import java.util.Set;
 
-public class GamePlay extends Observable {
+public class GamePlay {
 	private static final int NUM_PLAYERS = 4;
-	private Set<Connection> clients;
-	
+	private Set<Player> players;
+
 	public GamePlay() {
-		this.clients = new HashSet<Connection>();
+		this.players = new HashSet<Player>();
 	}
-	
-	public synchronized Set<Connection> getClients() {
-		while (clients.isEmpty()) {
+
+	public synchronized Set<Player> getPlayers() {
+		while (players.isEmpty()) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		return clients;
+		return players;
 	}
-	
-	public synchronized void addClient(Connection client) {
-		clients.add(client);
-		if (clients.size() == NUM_PLAYERS) {
+
+	public synchronized void addClient(Player player) {
+		players.add(player);
+		System.out.println(players.size());
+		if (players.size() == NUM_PLAYERS) {
+			System.out.println("Notifying");
 			startGame();
 		}
 		notifyAll();
 	}
-	
+
 	private synchronized void startGame() {
 		int drawer = (int) Math.round(Math.random() * NUM_PLAYERS);
 		int i = 0;
-		for (Connection c : clients) {
-			c.setDrawing((i++) == drawer);
+		for (Player p : players) {
+			p.setDrawing((i++) == drawer);
+			p.startGame();
 		}
-		notifyObservers();
 	}
-	
+
 	public synchronized int countClients() {
-		return clients.size();
+		return players.size();
 	}
 }

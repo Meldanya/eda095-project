@@ -18,11 +18,10 @@ public class Server {
 		int numPlayer = 0;
 		while(true) {
 			Socket client = serversocket.accept();
-			Connection conn = new Connection(client);
-			conn.setName("Player#" + numPlayer++);
-			gamePlay.addClient(conn);
-			ClientConnectionHandler rh = new ClientConnectionHandler(conn, gamePlay);
-			rh.start();
+			Player player = new Player(client, gamePlay);
+			player.setPlayerName("Player#" + numPlayer++);
+			gamePlay.addClient(player);
+			player.start();
 			System.out.println("Got client");
 		}
 	}

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import model.Point;
-import server.Connection;
+import server.Player;
 
 import common.Protocol;
 
@@ -16,7 +16,7 @@ public class CoordCommand extends Command {
 
 	@Override
 	public void handle() throws IOException {
-		DataInputStream dis = new DataInputStream(client.getInputStream());
+		DataInputStream dis = new DataInputStream(player.getInputStream());
 		short size = dis.readShort();
 		List<Point> coords = new ArrayList<Point>(size);
 		for (int i = 0; i < size; i++) {
@@ -26,17 +26,17 @@ public class CoordCommand extends Command {
 		}
 		dis.readByte();
 
-		Set<Connection> clients = gamePlay.getClients();
-		for (Connection c : clients) {
-			if (!c.equals(client)) {
-				DataOutputStream dos = new DataOutputStream(c.getOutputStream());
+		Set<Player> players = gamePlay.getPlayers();
+		for (Player p : players) {
+			if (!p.equals(player)) {
+				DataOutputStream dos = new DataOutputStream(p.getOutputStream());
 
 				dos.writeByte(Protocol.DRAW_COORD_BULK);
 				dos.writeShort(coords.size());
 
-				for (Point p : coords) {
-					dos.writeShort(p.getX());
-					dos.writeShort(p.getY());
+				for (Point point : coords) {
+					dos.writeShort(point.getX());
+					dos.writeShort(point.getY());
 				}
 
 				dos.writeByte(Protocol.END);
