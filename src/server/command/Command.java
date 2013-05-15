@@ -2,8 +2,8 @@ package server.command;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.net.Socket;
 
+import server.Connection;
 import server.GamePlay;
 
 import common.Protocol;
@@ -11,15 +11,15 @@ import common.Protocol;
 
 
 public abstract class Command {
-	protected Socket client;
+	protected Connection client;
 	protected GamePlay gamePlay;
 	
-	protected void set(Socket c, GamePlay g) {
+	protected void set(Connection c, GamePlay g) {
 		this.client = c;
 		this.gamePlay = g;
 	}
 
-	public static final Command create(Socket client, GamePlay gamePlay) throws IOException {
+	public static final Command create(Connection client, GamePlay gamePlay) throws IOException {
 		Command command;
 		DataInputStream dis = new DataInputStream(client.getInputStream());
 		byte b = dis.readByte();

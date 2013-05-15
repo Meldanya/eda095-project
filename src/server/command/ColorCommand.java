@@ -3,8 +3,9 @@ package server.command;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.Set;
+
+import server.Connection;
 
 import common.Protocol;
 
@@ -18,8 +19,8 @@ public class ColorCommand extends Command {
 		short green = dis.readShort();
 		short blue = dis.readShort();
 
-		Set<Socket> clients = gamePlay.getClients();
-		for (Socket c : clients) {
+		Set<Connection> clients = gamePlay.getClients();
+		for (Connection c : clients) {
 			if (!c.equals(client)) {
 				DataOutputStream dos = new DataOutputStream(c.getOutputStream());
 

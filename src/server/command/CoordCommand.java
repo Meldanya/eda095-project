@@ -3,12 +3,12 @@ package server.command;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import model.Point;
+import server.Connection;
 
 import common.Protocol;
 
@@ -26,8 +26,8 @@ public class CoordCommand extends Command {
 		}
 		dis.readByte();
 
-		Set<Socket> clients = gamePlay.getClients();
-		for (Socket c : clients) {
+		Set<Connection> clients = gamePlay.getClients();
+		for (Connection c : clients) {
 			if (!c.equals(client)) {
 				DataOutputStream dos = new DataOutputStream(c.getOutputStream());
 

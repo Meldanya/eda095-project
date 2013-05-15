@@ -8,6 +8,8 @@ public class Protocol {
 	public static final byte DRAW_LINE_START     = 10;
 	public static final byte DRAW_COORD_BULK     = 11;
 
+	public static final byte CMD_CONNECT			= 40;
+	public static final byte CMD_DISCONNECT		= 41;
 	public static final byte CMD_DRAWING_STARTED = 20;
 	public static final byte CMD_DISABLE_DRAWING = 21;
 	public static final byte CMD_ENABLE_DRAWING  = 22;

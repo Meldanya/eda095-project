@@ -15,10 +15,13 @@ public class Server {
 	}
 
 	public void run() throws IOException, InterruptedException {
+		int numPlayer = 0;
 		while(true) {
 			Socket client = serversocket.accept();
-			gamePlay.addClient(client);
-			ClientConnectionHandler rh = new ClientConnectionHandler(client, gamePlay);
+			Connection conn = new Connection(client);
+			conn.setName("Player#" + numPlayer++);
+			gamePlay.addClient(conn);
+			ClientConnectionHandler rh = new ClientConnectionHandler(conn, gamePlay);
 			rh.start();
 			System.out.println("Got client");
 		}
