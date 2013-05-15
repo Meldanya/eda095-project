@@ -51,7 +51,7 @@ public class ReceiverThread extends Thread {
 				case Protocol.CMD_DISABLE_DRAWING:
 					command = new DisableCommand(picture);
 					break;
-				case Protocol.CMD_ENABLE_Drawing:
+				case Protocol.CMD_ENABLE_DRAWING:
 					command = new EnableCommand(picture);
 					break;
 				default:
