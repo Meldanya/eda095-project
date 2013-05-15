@@ -16,14 +16,14 @@ public class Client {
 	public Client(String host, int port, boolean sendMode) {
 		Socket s = null;
 		try {
-			if (!sendMode) {
-				System.out.println("Listening for connection");
-				ServerSocket ss = new ServerSocket(port);
-				s = ss.accept();
-				System.out.println("Connection accepted");
-			} else {
+//			if (sendMode) {
+//				System.out.println("Listening for connection");
+//				ServerSocket ss = new ServerSocket(port);
+//				s = ss.accept();
+//				System.out.println("Connection accepted");
+//			} else {
 				s = new Socket(host, port);
-			}
+//			}
 		} catch (IOException e) {
 
 		}
