@@ -6,45 +6,48 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
+
 import model.PictureModel;
 
 public class Client {
 
-	public Client(String host, int port, boolean sendMode) {
+	public Client(boolean sendMode) throws Exception {
 		Socket s = null;
-		try {
-//			if (sendMode) {
-//				System.out.println("Listening for connection");
-//				ServerSocket ss = new ServerSocket(port);
-//				s = ss.accept();
-//				System.out.println("Connection accepted");
-//			} else {
-				s = new Socket(host, port);
-//			}
-		} catch (IOException e) {
 
+		String host = JOptionPane.showInputDialog("Host");
+		int port = Integer.parseInt(JOptionPane.showInputDialog("Port"));
+		String username = JOptionPane.showInputDialog("Username");
+
+		try {
+			s = new Socket(host, port);
+		} catch (IOException e) {
+			throw new Exception("Host " + host + ":" + port + " unavailable.");
 		}
-		
+
 		try {
 			DrawingMonitor monitor = new DrawingMonitor(s.getOutputStream());
-			PictureWrapper picture = new PictureWrapper(monitor, new PictureModel(), sendMode);
+			PictureWrapper picture = new PictureWrapper(monitor,
+					new PictureModel(), sendMode);
 			GUI gui = new GUI(picture);
 			new ReceiverThread(picture, s.getInputStream()).start();
 			new SendThread(monitor).start();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
 	public static void main(String[] args) {
-		if (args.length != 3) {
+		if (args.length != 1) {
 			System.exit(1);
 		}
-		boolean sendMode = Integer.parseInt(args[2]) == 1;
-		String s = args[0];
-		int port = Integer.parseInt(args[1]);
-		
-		new Client(s, port, sendMode);
+		boolean sendMode = Integer.parseInt(args[0]) == 1;
+
+		try {
+			new Client(sendMode);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 
 }
