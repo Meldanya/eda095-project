@@ -46,6 +46,7 @@ public class Client {
 		try {
 			new Client(sendMode);
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}

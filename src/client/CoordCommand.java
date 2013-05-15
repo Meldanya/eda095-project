@@ -11,10 +11,16 @@ import common.Protocol;
 import model.Picture;
 import model.Point;
 
-public class CoordCommand implements DrawingCommand {
+public class CoordCommand implements Command {
 	
 	private List<Point> coords;
+	private Picture picture;
 	
+	public CoordCommand(Picture picture) {
+		coords = new ArrayList<Point>();
+		this.picture = picture;
+	}
+
 	public CoordCommand() {
 		coords = new ArrayList<Point>();
 	}
@@ -37,7 +43,7 @@ public class CoordCommand implements DrawingCommand {
 	}
 
 	@Override
-	public void perform(DataInputStream dis, Picture picture) throws IOException {
+	public void perform(DataInputStream dis) throws IOException {
 		short size = dis.readShort();
 		for (int i = 0; i < size; i++) {
 			short x = dis.readShort();

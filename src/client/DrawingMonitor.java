@@ -12,12 +12,12 @@ import model.Point;
 public class DrawingMonitor {
 	
 	private DataOutputStream dos;
-	private List<DrawingCommand> commands;
+	private List<Command> commands;
 	private CoordCommand coordCommand;
 	
 	public DrawingMonitor(OutputStream os) {
 		dos = new DataOutputStream(os);
-		commands = new ArrayList<DrawingCommand>();
+		commands = new ArrayList<Command>();
 	}
 	
 	public synchronized void sendPoint(Point p) {
@@ -58,7 +58,7 @@ public class DrawingMonitor {
 			}
 		}
 		
-		for (DrawingCommand dc : commands) {
+		for (Command dc : commands) {
 			try {
 				dc.send(dos);
 			} catch (IOException e) {

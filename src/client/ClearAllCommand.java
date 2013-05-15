@@ -8,7 +8,17 @@ import common.Protocol;
 
 import model.Picture;
 
-public class ClearAllCommand implements DrawingCommand {
+public class ClearAllCommand implements Command {
+
+	private Picture picture;
+	
+	public ClearAllCommand(Picture picture) {
+		this.picture = picture;
+	}
+	
+	public ClearAllCommand() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void send(DataOutputStream dos) throws IOException {
@@ -18,7 +28,7 @@ public class ClearAllCommand implements DrawingCommand {
 	}
 
 	@Override
-	public void perform(DataInputStream dis, Picture picture)
+	public void perform(DataInputStream dis)
 			throws IOException {
 		dis.readByte();
 		picture.clear();

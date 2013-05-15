@@ -8,12 +8,13 @@ import model.Picture;
 
 import common.Protocol;
 
-public class ThicknessCommand implements DrawingCommand {
+public class ThicknessCommand implements Command {
 
 	private int thickness;
+	private Picture picture;
 	
-	public ThicknessCommand() {
-		
+	public ThicknessCommand(Picture picture) {
+		this.picture = picture;
 	}
 	
 	public ThicknessCommand(int thickness) {
@@ -28,7 +29,7 @@ public class ThicknessCommand implements DrawingCommand {
 	}
 
 	@Override
-	public void perform(DataInputStream dis, Picture picture) throws IOException {
+	public void perform(DataInputStream dis) throws IOException {
 		int thickness = dis.readShort();
 		picture.setThickness(thickness);
 		dis.readByte();

@@ -8,7 +8,17 @@ import common.Protocol;
 
 import model.Picture;
 
-public class UndoCommand implements DrawingCommand {
+public class UndoCommand implements Command {
+
+	private Picture picture;
+	
+	public UndoCommand(Picture picture) {
+		this.picture = picture;
+	}
+		
+	public UndoCommand() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void send(DataOutputStream dos) throws IOException {
@@ -17,7 +27,7 @@ public class UndoCommand implements DrawingCommand {
 	}
 
 	@Override
-	public void perform(DataInputStream dis, Picture picture)
+	public void perform(DataInputStream dis)
 			throws IOException {
 		dis.readByte();
 		picture.undo();

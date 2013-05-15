@@ -21,6 +21,7 @@ public class GuessPanel extends JPanel {
 		JScrollPane jsp = new JScrollPane();
 		JTextArea text = new JTextArea();
 		jsp.add(text);
+		text.setText("BLBALBLALLBA");
 		add(jsp, BorderLayout.CENTER);
 		add(bottom, BorderLayout.SOUTH);
 		

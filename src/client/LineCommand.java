@@ -8,7 +8,17 @@ import model.Picture;
 
 import common.Protocol;
 
-public class LineCommand implements DrawingCommand {
+public class LineCommand implements Command {
+
+	private Picture picture;
+	
+	public LineCommand(Picture picture) {
+		this.picture = picture;
+	}
+	
+	public LineCommand() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void send(DataOutputStream dos) throws IOException {
@@ -17,7 +27,7 @@ public class LineCommand implements DrawingCommand {
 	}
 
 	@Override
-	public void perform(DataInputStream dis, Picture picture) throws IOException {
+	public void perform(DataInputStream dis) throws IOException {
 		dis.readByte();
 		picture.newLine();		
 	}

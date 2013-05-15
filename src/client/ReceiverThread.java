@@ -1,5 +1,7 @@
 package client;
 
+import gui.Scoreboard;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +14,7 @@ public class ReceiverThread extends Thread {
 	
 	private DataInputStream dis;
 	private Picture picture;
+	private Scoreboard scoreboard;
 	
 	public ReceiverThread(Picture p, InputStream is) {
 		picture = p;
@@ -21,33 +24,36 @@ public class ReceiverThread extends Thread {
 	public void run() {
 		try {
 			while (true)  {
-				DrawingCommand command;
+				Command command;
 				byte b = dis.readByte();
 				switch (b) {
 				case Protocol.CMD_SET_COLOR:
-					command = new ColorCommand();
+					command = new ColorCommand(picture);
 					break;
 				case Protocol.CMD_SET_THICKNESS:
-					command = new ThicknessCommand();
+					command = new ThicknessCommand(picture);
 					break;
 				case Protocol.DRAW_LINE_START:
-					command = new LineCommand();
+					command = new LineCommand(picture);
 					break;
 				case Protocol.DRAW_COORD_BULK:
-					command = new CoordCommand();
+					command = new CoordCommand(picture);
 					break;
 				case Protocol.CMD_UNDO:
-					command = new UndoCommand();
+					command = new UndoCommand(picture);
 					break;
 				case Protocol.CMD_CLEAR_ALL:
-					command = new ClearAllCommand();
+					command = new ClearAllCommand(picture);
+					break;
+				case Protocol.CMD_UPDATE_RANKING:
+					command = new UpdateRankingCommand(scoreboard);
 					break;
 				default:
 					command = new NoCommand();
 					break;
 				}
 				
-				command.perform(dis, picture);
+				command.perform(dis);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -9,12 +9,13 @@ import model.Picture;
 
 import common.Protocol;
 
-public class ColorCommand implements DrawingCommand {
+public class ColorCommand implements Command {
 
 	private Color c;
+	private Picture picture;
 	
-	public ColorCommand() {
-		
+	public ColorCommand(Picture p) {
+		this.picture = p;
 	}
 	
 	public ColorCommand(Color c) {
@@ -34,7 +35,7 @@ public class ColorCommand implements DrawingCommand {
 	}
 
 	@Override
-	public void perform(DataInputStream dis, Picture picture) throws IOException {
+	public void perform(DataInputStream dis) throws IOException {
 		short red = dis.readShort();
 		short green = dis.readShort();
 		short blue = dis.readShort();
