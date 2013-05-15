@@ -12,12 +12,16 @@ public class PictureWrapper implements Picture {
 
 	private DrawingMonitor monitor;
 	private PictureModel picture;
-	private boolean sendActions;
+	private boolean drawMode;
 	
 	public PictureWrapper(DrawingMonitor monitor, PictureModel picture, boolean sendActions) {
 		this.monitor = monitor;
 		this.picture = picture;
-		this.sendActions = sendActions;
+		this.drawMode = sendActions;
+	}
+	
+	public void setDrawMode(boolean dm) {
+		drawMode = dm;
 	}
 
 	public PictureModel getModel() {
@@ -26,26 +30,28 @@ public class PictureWrapper implements Picture {
 	
 	@Override
 	public void setColor(Color color) {
-		if (sendActions)
+		if (drawMode) {
 			monitor.sendColor(color);
-		
-		picture.setColor(color);
+			picture.setColor(color);
+		}
 	}
 
 	@Override
 	public void newLine() {
-		if (sendActions)
+		if (drawMode) {
 			monitor.sendLineSegment();
+			picture.newLine();
+		}
 		
-		picture.newLine();
 	}
 
 	@Override
 	public void addPoint(Point p) {
-		if (sendActions) 
+		if (drawMode) {
 			monitor.sendPoint(p);
-		
-		picture.addPoint(p);		
+			picture.addPoint(p);
+		}
+				
 	}
 
 	@Override
@@ -55,26 +61,28 @@ public class PictureWrapper implements Picture {
 
 	@Override
 	public void clear() {
-		if (sendActions)
+		if (drawMode) {
 			monitor.sendClearAll();
-		
-		picture.clear();
+			picture.clear();
+		}
 	}
 
 	@Override
 	public void undo() {
-		if (sendActions)
+		if (drawMode) {
 			monitor.sendUndo();
-		
-		picture.undo();		
+			picture.undo();	
+		}
+			
 	}
 
 	@Override
 	public void setThickness(int i) {
-		if (sendActions)
+		if (drawMode) {
 			monitor.sendThickness(i);
+			picture.setThickness(i); 
+		}
 		
-		picture.setThickness(i);
 	}
 
 	@Override

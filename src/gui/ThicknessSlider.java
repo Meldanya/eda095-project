@@ -22,7 +22,6 @@ public class ThicknessSlider extends JSlider implements ChangeListener, Observer
 		setMajorTickSpacing(1);
 		setPaintTicks(true);
 		addChangeListener(this);
-		p.setThickness(getValue() * 3);
 		pen = p.getPen();
 		pen.addObserver(this);
 	}

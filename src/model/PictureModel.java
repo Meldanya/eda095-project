@@ -17,6 +17,7 @@ public class PictureModel extends Observable implements Picture {
 		segments = new ArrayList<LineSegment>();
 		color = Color.BLACK;
 		pen = new Pen();
+		setThickness(3*5);
 	}
 	
 	public void setColor(Color color) {
