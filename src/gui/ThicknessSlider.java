@@ -24,6 +24,7 @@ public class ThicknessSlider extends JSlider implements ChangeListener, Observer
 		addChangeListener(this);
 		pen = p.getPen();
 		pen.addObserver(this);
+		update(null, null);
 	}
 
 	@Override
@@ -33,6 +34,7 @@ public class ThicknessSlider extends JSlider implements ChangeListener, Observer
 
 	@Override
 	public void update(Observable o, Object arg) {
+		setEnabled(pen.isEnabled());
 		setValue(pen.getThickness() / 3);
 	}
 

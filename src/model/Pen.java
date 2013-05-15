@@ -7,6 +7,7 @@ public class Pen extends Observable {
 	
 	private Color color;
 	private int thickness;
+	private boolean enabled;
 	
 	public Pen() {
 		this.color = Color.black;
@@ -32,5 +33,17 @@ public class Pen extends Observable {
 	public int getThickness() {
 		return thickness;
 	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		setChanged();
+		notifyObservers();
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	
 
 }

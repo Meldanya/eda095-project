@@ -17,11 +17,12 @@ public class PictureWrapper implements Picture {
 	public PictureWrapper(DrawingMonitor monitor, PictureModel picture, boolean sendActions) {
 		this.monitor = monitor;
 		this.picture = picture;
-		this.drawMode = sendActions;
+		setDrawMode(sendActions);
 	}
 	
 	public void setDrawMode(boolean dm) {
 		drawMode = dm;
+		picture.getPen().setEnabled(dm);
 	}
 
 	public PictureModel getModel() {
