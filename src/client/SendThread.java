@@ -10,6 +10,7 @@ public class SendThread extends Thread {
 	
 	public void run() {
 		while (true) {
+			System.out.println("Sending cmd");
 			monitor.send();
 		}
 	}
