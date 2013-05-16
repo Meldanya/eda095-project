@@ -10,18 +10,14 @@ public class PictureModel extends Observable implements Picture {
 
 	private List<LineSegment> segments;
 	private Pen pen;
-	private Color color;
-	private int thickness;
 	
 	public PictureModel() {
 		segments = new ArrayList<LineSegment>();
-		color = Color.BLACK;
 		pen = new Pen();
-		setThickness(3*5);
+		setThickness(3*6);
 	}
 	
 	public void setColor(Color color) {
-//		this.color = color;
 		pen.setColor(color);
 	}
 	
@@ -62,7 +58,6 @@ public class PictureModel extends Observable implements Picture {
 	}
 
 	public void setThickness(int i) {
-//		thickness = i;
 		pen.setThickness(i);
 	}
 	

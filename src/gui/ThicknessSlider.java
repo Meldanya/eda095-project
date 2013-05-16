@@ -16,7 +16,7 @@ public class ThicknessSlider extends JSlider implements ChangeListener, Observer
 	private Pen pen;
 	
 	public ThicknessSlider(Picture p) {
-		super(1, 10, 5);
+		super(1, 11, 6);
 		this.p = p;
 		setSnapToTicks(true);
 		setMajorTickSpacing(1);

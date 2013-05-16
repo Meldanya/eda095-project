@@ -11,7 +11,6 @@ public class Pen extends Observable {
 	
 	public Pen() {
 		this.color = Color.black;
-		this.thickness = 5;
 	}
 	
 	protected void setColor(Color color) {

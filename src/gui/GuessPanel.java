@@ -10,21 +10,23 @@ import javax.swing.JTextField;
 
 public class GuessPanel extends JPanel {
 	
+	private static JTextArea output = new JTextArea(4, 40);
+	
 	public GuessPanel() {
-		setLayout(new BorderLayout());
-		
+		output.setEditable(false);
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BorderLayout());
 		bottom.add(new JTextField(10), BorderLayout.CENTER);
 		bottom.add(new JButton("Guess"), BorderLayout.EAST);
-		
-		JScrollPane jsp = new JScrollPane();
-		JTextArea text = new JTextArea();
-		jsp.add(text);
-		text.setText("BLBALBLALLBA");
-		add(jsp, BorderLayout.CENTER);
-		add(bottom, BorderLayout.SOUTH);
-		
-	}
 
+		
+		setLayout(new BorderLayout());
+		add(new JScrollPane(output), BorderLayout.CENTER);
+		add(bottom, BorderLayout.SOUTH);
+	}
+	
+	public static void output(String text) {
+		output.append(text + "\n");
+		output.setCaretPosition(output.getText().length() - 1);
+	}
 }

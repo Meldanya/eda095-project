@@ -18,8 +18,6 @@ import client.commands.ThicknessCommand;
 import client.commands.UndoCommand;
 import client.commands.UpdateRankingCommand;
 
-import model.Picture;
-
 import common.Protocol;
 
 public class ReceiverThread extends Thread {
