@@ -6,6 +6,18 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import client.commands.ClearAllCommand;
+import client.commands.ColorCommand;
+import client.commands.Command;
+import client.commands.CoordCommand;
+import client.commands.DisableCommand;
+import client.commands.EnableCommand;
+import client.commands.LineCommand;
+import client.commands.NoCommand;
+import client.commands.ThicknessCommand;
+import client.commands.UndoCommand;
+import client.commands.UpdateRankingCommand;
+
 import model.Picture;
 
 import common.Protocol;

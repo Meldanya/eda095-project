@@ -7,6 +7,15 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.commands.ClearAllCommand;
+import client.commands.ColorCommand;
+import client.commands.Command;
+import client.commands.ConnectCommand;
+import client.commands.CoordCommand;
+import client.commands.LineCommand;
+import client.commands.ThicknessCommand;
+import client.commands.UndoCommand;
+
 import model.Point;
 
 public class CommunicationMonitor {

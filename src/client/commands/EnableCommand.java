@@ -1,14 +1,16 @@
-package client;
+package client.commands;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class DisableCommand implements Command {
+import client.PictureWrapper;
+
+public class EnableCommand implements Command {
 	
 	private PictureWrapper picture;
 	
-	public DisableCommand(PictureWrapper picture) {
+	public EnableCommand(PictureWrapper picture) {
 		this.picture = picture;
 	}
 
@@ -20,7 +22,7 @@ public class DisableCommand implements Command {
 
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
-		picture.setDrawMode(false);
+		picture.setDrawMode(true);
 	}
 
 }
