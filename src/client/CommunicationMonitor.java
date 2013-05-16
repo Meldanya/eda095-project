@@ -9,15 +9,16 @@ import java.util.List;
 
 import model.Point;
 
-public class DrawingMonitor {
+public class CommunicationMonitor {
 	
 	private DataOutputStream dos;
 	private List<Command> commands;
 	private CoordCommand coordCommand;
 	
-	public DrawingMonitor(OutputStream os) {
+	public CommunicationMonitor(OutputStream os, String name) {
 		dos = new DataOutputStream(os);
 		commands = new ArrayList<Command>();
+		commands.add(new ConnectCommand(name));
 	}
 	
 	public synchronized void sendPoint(Point p) {

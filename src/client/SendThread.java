@@ -2,9 +2,9 @@ package client;
 
 public class SendThread extends Thread {
 	
-	private DrawingMonitor monitor;
+	private CommunicationMonitor monitor;
 	
-	public SendThread(DrawingMonitor monitor) {
+	public SendThread(CommunicationMonitor monitor) {
 		this.monitor = monitor;
 	}
 	

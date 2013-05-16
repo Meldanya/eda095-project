@@ -16,7 +16,12 @@ public class Client {
 		Socket s = null;
 
 		String host = JOptionPane.showInputDialog("Host");
-		int port = Integer.parseInt(JOptionPane.showInputDialog("Port"));
+		int port = 8080;
+		try {
+			port = Integer.parseInt(JOptionPane.showInputDialog("Port"));
+		} catch (NumberFormatException e) {
+			throw new Exception("Port is not a number");
+		}
 		String username = JOptionPane.showInputDialog("Username");
 
 		try {
@@ -26,14 +31,14 @@ public class Client {
 		}
 
 		try {
-			DrawingMonitor monitor = new DrawingMonitor(s.getOutputStream());
+			CommunicationMonitor monitor = new CommunicationMonitor(s.getOutputStream(), username);
 			PictureWrapper picture = new PictureWrapper(monitor,
 					new PictureModel(), sendMode);
 			GUI gui = new GUI(picture);
 			new ReceiverThread(picture, s.getInputStream()).start();
 			new SendThread(monitor).start();
 		} catch (IOException e) {
-			throw e;
+			throw new Exception("Unexpected server error occured.");
 		}
 	}
 

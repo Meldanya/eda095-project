@@ -2,19 +2,20 @@ package client;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Observable;
 
 import model.Pen;
 import model.Picture;
 import model.PictureModel;
 import model.Point;
 
-public class PictureWrapper implements Picture {
+public class PictureWrapper extends Observable implements Picture {
 
-	private DrawingMonitor monitor;
+	private CommunicationMonitor monitor;
 	private PictureModel picture;
 	private boolean drawMode;
 	
-	public PictureWrapper(DrawingMonitor monitor, PictureModel picture, boolean sendActions) {
+	public PictureWrapper(CommunicationMonitor monitor, PictureModel picture, boolean sendActions) {
 		this.monitor = monitor;
 		this.picture = picture;
 		setDrawMode(sendActions);
@@ -23,6 +24,12 @@ public class PictureWrapper implements Picture {
 	public void setDrawMode(boolean dm) {
 		drawMode = dm;
 		picture.getPen().setEnabled(dm);
+		setChanged();
+		notifyObservers();
+	}
+	
+	public boolean getDrawMode() {
+		return drawMode;
 	}
 
 	public PictureModel getModel() {
