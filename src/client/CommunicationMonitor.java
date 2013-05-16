@@ -12,6 +12,7 @@ import client.commands.ColorCommand;
 import client.commands.Command;
 import client.commands.ConnectCommand;
 import client.commands.CoordCommand;
+import client.commands.GuessCommand;
 import client.commands.LineCommand;
 import client.commands.ThicknessCommand;
 import client.commands.UndoCommand;
@@ -78,6 +79,10 @@ public class CommunicationMonitor {
 		
 		commands.clear();
 		coordCommand = null;
+	}
+	
+	public synchronized void sendGuess(String guess) {
+		commands.add(new GuessCommand(guess));
 	}
 
 }

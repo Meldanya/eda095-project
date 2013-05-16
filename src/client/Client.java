@@ -34,7 +34,7 @@ public class Client {
 			CommunicationMonitor monitor = new CommunicationMonitor(s.getOutputStream(), username);
 			PictureWrapper picture = new PictureWrapper(monitor,
 					new PictureModel(), sendMode);
-			GUI gui = new GUI(picture);
+			GUI gui = new GUI(picture, monitor);
 			new ReceiverThread(picture, s.getInputStream()).start();
 			new SendThread(monitor).start();
 		} catch (IOException e) {

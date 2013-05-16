@@ -5,15 +5,18 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 
+import client.CommunicationMonitor;
 import client.PictureWrapper;
 
 
 public class GUI extends JFrame implements Observer {
 	
 	private PictureWrapper p;
+	private CommunicationMonitor cm;
 	
-	public GUI(PictureWrapper p) {
+	public GUI(PictureWrapper p, CommunicationMonitor cm) {
 		super("GUI");
+		this.cm = cm;
 		this.p = p;
 		p.addObserver(this);
 		setResizable(false);
@@ -21,7 +24,7 @@ public class GUI extends JFrame implements Observer {
 		
 		setLayout(new BorderLayout());
 		add(new Whiteboard(p), BorderLayout.CENTER);
-		add(new GuessPanel(), BorderLayout.SOUTH);
+		add(new GuessPanel(cm), BorderLayout.SOUTH);
 		Scoreboard sb = new Scoreboard();
 		add(sb, BorderLayout.EAST);
 		
