@@ -6,7 +6,10 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 import server.command.Command;
-
+import server.command.EnableDrawingCommand;
+import server.command.DisableDrawingCommand;
+import server.command.DrawingStartedCommand;
+import server.command.UpdateRankingCommand;
 
 /**
  * RequestHandler
@@ -30,6 +33,14 @@ public class Player extends Thread {
 		this.score = 0;
 		drawing = false;
 		this.gamePlay = gp;
+
+		Command cmd = new DisableDrawingCommand();
+		cmd.set(this, gp);
+		try {
+			cmd.handle();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isDrawing() {
@@ -73,7 +84,6 @@ public class Player extends Thread {
 	public void run() {
 		while (!isInterrupted()) {
 			try {
-				System.out.println(this);
 				Command.create(this, gamePlay).handle();
 			} catch (IOException e) {
 				interrupt();
@@ -82,8 +92,32 @@ public class Player extends Thread {
 		}
 	}
 
-	public void startGame() {
-		// Called when the game starts.
-		System.out.println("Game started!");
+	public void startGame(String word) {
+		Command cmd;
+		if (drawing) {
+			cmd = new EnableDrawingCommand(word);
+			cmd.set(this, gamePlay);
+			try {
+				cmd.handle();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		cmd = new UpdateRankingCommand();
+		cmd.set(this, gamePlay);
+		try {
+			cmd.handle();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		cmd = new DrawingStartedCommand();
+		cmd.set(this, gamePlay);
+		try {
+			cmd.handle();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

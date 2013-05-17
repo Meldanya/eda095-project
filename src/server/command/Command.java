@@ -12,7 +12,7 @@ public abstract class Command {
 	protected Player player;
 	protected GamePlay gamePlay;
 
-	protected void set(Player player, GamePlay g) {
+	public void set(Player player, GamePlay g) {
 		this.player = player;
 		this.gamePlay = g;
 	}
@@ -40,6 +40,13 @@ public abstract class Command {
 			break;
 		case Protocol.CMD_CLEAR_ALL:
 			command = new ClearAllCommand();
+			break;
+		case Protocol.CMD_CONNECT:
+			command = new ConnectCommand();
+			break;
+		case Protocol.GUESS_WORD:
+			System.out.println("Creating guess word");
+			command = new GuessWordCommand();
 			break;
 		default:
 			command = new NullCommand();
