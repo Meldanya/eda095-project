@@ -34,8 +34,8 @@ public class GamePlay {
 
 	private synchronized void startGame() {
 		// TODO: Add wordlist instead of horse
-		word = "häst";
-		int drawer = (int) Math.round(Math.random() * NUM_PLAYERS);
+		word = "drake";
+		int drawer = (int) Math.round(Math.random() * (NUM_PLAYERS - 1));
 		System.out.println("Drawer: " + drawer);
 		int i = 0;
 		for (Player p : players) {

@@ -1,38 +1,32 @@
 package gui;
 
 import java.awt.Dimension;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Scoreboard extends JPanel {
-	
-	private Map<String, PlayerScoreLabel> scores;
+import model.Scores;
+
+public class Scoreboard extends JPanel implements Observer {
 	
 	public Scoreboard() {
-		scores = new HashMap<String, PlayerScoreLabel>();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setPreferredSize(new Dimension(200, 200));
-		
-		// TODO: remove mock up players
-		addPlayer("Nicklas");
-		addPlayer("Erik");
-		addPlayer("Erik");
-		addPlayer("Marcus");
+		Scores.getInstance().addObserver(this);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		removeAll();
+		Map<String, Integer> map = Scores.getInstance().getScores();
+		for (String s : map.keySet()) {
+			add(new JLabel(s + ": " + map.get(s) + " points"));
+		}
 	}
 	
-	public void addPlayer(String user) {
-		scores.put(user, new PlayerScoreLabel(user));
-		PlayerScoreLabel psl = scores.get(user);
-		psl.setSize(200, 20);
-		psl.setAlignmentX(LEFT_ALIGNMENT);
-		add(psl);		
-	}
-	
-	public void setScore(String user, int score) {
-		scores.get(user).setScore(score);
-	}
 
 }

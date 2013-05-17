@@ -10,14 +10,12 @@ public class NoCommand implements Command {
 
 	@Override
 	public void send(DataOutputStream dos) throws IOException {
-		// TODO Auto-generated method stub
-
+		System.out.println("NoCommand.send()");
 	}
 
 	@Override
 	public void perform(DataInputStream dis) {
-		// TODO Auto-generated method stub
-
+		System.out.println("NoCommand.perform()");
 	}
 
 }

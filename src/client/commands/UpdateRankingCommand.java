@@ -1,17 +1,15 @@
 package client.commands;
 
-import gui.Scoreboard;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import model.Scores;
+
 public class UpdateRankingCommand implements Command {
 
-	private Scoreboard scoreboard;
 	
-	public UpdateRankingCommand(Scoreboard scoreboard) {
-		this.scoreboard = scoreboard;
+	public UpdateRankingCommand() {
 	}
 	
 	
@@ -24,7 +22,7 @@ public class UpdateRankingCommand implements Command {
 			throws IOException {
 		String name = dis.readUTF();
 		int score = dis.readInt();
-		scoreboard.setScore(name, score);
+		Scores.getInstance().setScore(name, score);
 	}
 
 }

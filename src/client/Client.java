@@ -15,10 +15,10 @@ public class Client {
 	public Client(boolean sendMode) throws Exception {
 		Socket s = null;
 
-		String host = JOptionPane.showInputDialog("Host");
+		String host = JOptionPane.showInputDialog("Host", "localhost");
 		int port = 8080;
 		try {
-			port = Integer.parseInt(JOptionPane.showInputDialog("Port"));
+			port = Integer.parseInt(JOptionPane.showInputDialog("Port", "8080"));
 		} catch (NumberFormatException e) {
 			throw new Exception("Port is not a number");
 		}

@@ -12,6 +12,8 @@ import client.commands.Command;
 import client.commands.CoordCommand;
 import client.commands.DisableCommand;
 import client.commands.EnableCommand;
+import client.commands.GuessAckCommand;
+import client.commands.GuessNakCommand;
 import client.commands.LineCommand;
 import client.commands.NoCommand;
 import client.commands.ThicknessCommand;
@@ -24,7 +26,6 @@ public class ReceiverThread extends Thread {
 	
 	private DataInputStream dis;
 	private PictureWrapper picture;
-	private Scoreboard scoreboard;
 	
 	public ReceiverThread(PictureWrapper p, InputStream is) {
 		picture = p;
@@ -56,13 +57,19 @@ public class ReceiverThread extends Thread {
 					command = new ClearAllCommand(picture.getModel());
 					break;
 				case Protocol.CMD_UPDATE_RANKING:
-					command = new UpdateRankingCommand(scoreboard);
+					command = new UpdateRankingCommand();
 					break;
 				case Protocol.CMD_DISABLE_DRAWING:
 					command = new DisableCommand(picture);
 					break;
 				case Protocol.CMD_ENABLE_DRAWING:
 					command = new EnableCommand(picture);
+					break;
+				case Protocol.GUESS_ACK:
+					command = new GuessAckCommand();
+					break;
+				case Protocol.GUESS_NAK:
+					command = new GuessNakCommand();
 					break;
 				default:
 					command = new NoCommand();
