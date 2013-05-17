@@ -17,6 +17,7 @@ public class Scores extends Observable {
 	}
 	
 	public void setScore(String player, int score) {
+		System.out.println("Setting score for " + player + " to " + score);
 		scores.put(player, score);
 		setChanged();
 		notifyObservers();
@@ -24,6 +25,8 @@ public class Scores extends Observable {
 	
 	public Map<String, Integer> getScores() {
 		TreeMap<String, Integer> map = new TreeMap<String, Integer>(new ValueComparator(scores));
+		System.out.println("size of scores = " + scores.size());
+		map.putAll(scores);
 		return map;
 	}
 	
@@ -32,6 +35,12 @@ public class Scores extends Observable {
 			instance = new Scores();
 		}
 		return instance;
+	}
+
+	public void setScore(Map<String, Integer> map) {
+		scores.putAll(map);
+		setChanged();
+		notifyObservers();
 	}
 	
 	private class ValueComparator implements Comparator<String> {
@@ -46,9 +55,14 @@ public class Scores extends Observable {
 		public int compare(String arg0, String arg1) {
 			Integer i1 = map.get(arg0);
 			Integer i2 = map.get(arg1);
-			return i1.compareTo(i2);
+			if (i1 < i2) {
+				return -1;
+			} else {
+				return 1;
+			}
 		}
 		
 	}
+
 
 }

@@ -1,7 +1,5 @@
 package client;
 
-import gui.Scoreboard;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +9,7 @@ import client.commands.ColorCommand;
 import client.commands.Command;
 import client.commands.CoordCommand;
 import client.commands.DisableCommand;
+import client.commands.DrawingStartedCommand;
 import client.commands.EnableCommand;
 import client.commands.GuessAckCommand;
 import client.commands.GuessNakCommand;
@@ -71,8 +70,11 @@ public class ReceiverThread extends Thread {
 				case Protocol.GUESS_NAK:
 					command = new GuessNakCommand();
 					break;
+				case Protocol.CMD_DRAWING_STARTED:
+					command = new DrawingStartedCommand();
+					break;
 				default:
-					command = new NoCommand();
+					command = new NoCommand(b);
 					break;
 				}
 				

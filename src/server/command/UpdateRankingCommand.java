@@ -15,8 +15,12 @@ public class UpdateRankingCommand extends Command {
 	public void handle() throws IOException {
 		DataOutputStream dos = new DataOutputStream(player.getOutputStream());
 		dos.writeByte(Protocol.CMD_UPDATE_RANKING);
-		dos.writeUTF(player.getPlayerName());
-		dos.writeInt(player.getScore());
+		dos.writeShort(gamePlay.getPlayers().size());
+		for (Player p : gamePlay.getPlayers()) {
+			dos.writeUTF(p.getPlayerName());
+			dos.writeInt(p.getScore());
+		}
+		
 		dos.writeByte(Protocol.END);
 	}
 }

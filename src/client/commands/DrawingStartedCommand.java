@@ -17,7 +17,8 @@ public class DrawingStartedCommand implements Command {
 
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
-		new ScoreCounterThread(35000).start();
+		new ScoreCounterThread(dis.readShort() * 1000).start();
+		dis.readByte();
 	}
 
 }

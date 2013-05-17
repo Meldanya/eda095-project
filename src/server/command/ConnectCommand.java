@@ -13,7 +13,7 @@ public class ConnectCommand extends Command {
 		dis.readByte();
 
 		System.out.println("Got new name: " + name);
-		player.setName(name);
+		player.setPlayerName(name);
 	}
 
 }

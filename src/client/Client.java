@@ -9,12 +9,13 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 import model.PictureModel;
+import model.Scores;
 
 public class Client {
 
 	public Client(boolean sendMode) throws Exception {
 		Socket s = null;
-
+		
 		String host = JOptionPane.showInputDialog("Host", "localhost");
 		int port = 8080;
 		try {

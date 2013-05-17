@@ -23,6 +23,7 @@ public class DisableCommand implements Command {
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
 		picture.setDrawMode(false);
+		dis.readByte();
 	}
 
 }

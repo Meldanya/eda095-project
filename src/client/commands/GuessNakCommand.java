@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.swing.SwingUtilities;
 
 public class GuessNakCommand implements Command {
-
+	
 	@Override
 	public void send(DataOutputStream dos) throws IOException {
 		// TODO Auto-generated method stub
@@ -22,7 +22,7 @@ public class GuessNakCommand implements Command {
 		dis.readByte();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				GuessPanel.output(word + " was an incorrect guess");	
+				GuessPanel.output(word + " was an incorrect guess");
 			}
 		});
 		

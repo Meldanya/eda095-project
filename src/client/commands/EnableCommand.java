@@ -23,6 +23,8 @@ public class EnableCommand implements Command {
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
 		picture.setDrawMode(true);
+		String word = dis.readUTF();
+		dis.readByte();
 	}
 
 }
