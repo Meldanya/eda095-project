@@ -1,5 +1,7 @@
 package client.commands;
 
+import gui.GuessPanel;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,7 +18,6 @@ public class EnableCommand implements Command {
 
 	@Override
 	public void send(DataOutputStream dos) throws IOException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -24,6 +25,7 @@ public class EnableCommand implements Command {
 	public void perform(DataInputStream dis) throws IOException {
 		picture.setDrawMode(true);
 		String word = dis.readUTF();
+		GuessPanel.output("You shall draw \"" + word + "\"");
 		dis.readByte();
 	}
 

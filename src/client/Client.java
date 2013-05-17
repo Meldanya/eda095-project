@@ -3,13 +3,11 @@ package client;
 import gui.GUI;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
 import model.PictureModel;
-import model.Scores;
 
 public class Client {
 

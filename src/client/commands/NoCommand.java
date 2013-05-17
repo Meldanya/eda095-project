@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import model.Picture;
-
 public class NoCommand implements Command {
 
 	private int command;

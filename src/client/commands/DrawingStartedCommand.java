@@ -4,7 +4,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import client.ScoreCounterThread;
+import client.IntervalThread;
+import client.ScoreCounter;
+
+
 
 public class DrawingStartedCommand implements Command {
 	
@@ -17,7 +20,7 @@ public class DrawingStartedCommand implements Command {
 
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
-		new ScoreCounterThread(dis.readShort() * 1000).start();
+		new IntervalThread(dis.readShort() * 1000, 10000, new ScoreCounter(100, 10)).start();
 		dis.readByte();
 	}
 
