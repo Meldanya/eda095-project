@@ -11,9 +11,11 @@ public class ConnectCommand extends Command {
 
 		String name = dis.readUTF();
 		dis.readByte();
-
+		
 		System.out.println("Got new name: " + name);
 		player.setPlayerName(name);
+		
+		gamePlay.addClient(player);
 	}
 
 }

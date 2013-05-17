@@ -19,8 +19,6 @@ public class Server {
 		while(true) {
 			Socket client = serversocket.accept();
 			Player player = new Player(client, gamePlay);
-			player.setPlayerName("Player#" + numPlayer++);
-			gamePlay.addClient(player);
 			player.start();
 			System.out.println("Got client");
 		}
