@@ -24,6 +24,7 @@ public class EnableCommand implements Command {
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
 		picture.setDrawMode(true);
+		GuessPanel.disableGuessing();
 		String word = dis.readUTF();
 		GuessPanel.output("You shall draw \"" + word + "\"");
 		dis.readByte();

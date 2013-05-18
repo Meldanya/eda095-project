@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import server.command.ClearAllCommand;
 import server.command.Command;
 import server.command.EnableDrawingCommand;
 import server.command.DisableDrawingCommand;
@@ -94,14 +95,26 @@ public class Player extends Thread {
 
 	public void startGame(String word) {
 		Command cmd;
+		
+		cmd = new ClearAllCommand();
+		cmd.set(this, gamePlay);
+		try {
+			cmd.handle();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		if (drawing) {
 			cmd = new EnableDrawingCommand(word);
-			cmd.set(this, gamePlay);
-			try {
-				cmd.handle();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		} else {
+			cmd = new DisableDrawingCommand();
+		}
+
+		cmd.set(this, gamePlay);
+		try {
+			cmd.handle();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		cmd = new UpdateRankingCommand();
@@ -119,5 +132,9 @@ public class Player extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void incrementScore(int i) {
+		setScore(getScore() + i);
 	}
 }

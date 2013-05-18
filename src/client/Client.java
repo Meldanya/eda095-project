@@ -11,7 +11,7 @@ import model.PictureModel;
 
 public class Client {
 
-	public Client(boolean sendMode) throws Exception {
+	public Client() throws Exception {
 		Socket s = null;
 		
 		String host = JOptionPane.showInputDialog("Host", "localhost");
@@ -32,7 +32,7 @@ public class Client {
 		try {
 			CommunicationMonitor monitor = new CommunicationMonitor(s.getOutputStream(), username);
 			PictureWrapper picture = new PictureWrapper(monitor,
-					new PictureModel(), sendMode);
+					new PictureModel(), false);
 			GUI gui = new GUI(picture, monitor);
 			new ReceiverThread(picture, s.getInputStream()).start();
 			new SendThread(monitor).start();
@@ -42,13 +42,9 @@ public class Client {
 	}
 
 	public static void main(String[] args) {
-		if (args.length != 1) {
-			System.exit(1);
-		}
-		boolean sendMode = Integer.parseInt(args[0]) == 1;
 
 		try {
-			new Client(sendMode);
+			new Client();
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e.getMessage());

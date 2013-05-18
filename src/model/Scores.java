@@ -56,9 +56,9 @@ public class Scores extends Observable {
 			Integer i1 = map.get(arg0);
 			Integer i2 = map.get(arg1);
 			if (i1 < i2) {
-				return -1;
-			} else {
 				return 1;
+			} else {
+				return -1;
 			}
 		}
 		

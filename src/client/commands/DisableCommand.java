@@ -1,5 +1,7 @@
 package client.commands;
 
+import gui.GuessPanel;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -23,6 +25,7 @@ public class DisableCommand implements Command {
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
 		picture.setDrawMode(false);
+		GuessPanel.enableGuessing();
 		dis.readByte();
 	}
 

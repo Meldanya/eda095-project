@@ -17,15 +17,18 @@ public class GuessWordCommand extends Command {
 		DataInputStream dis = new DataInputStream(player.getInputStream());
 		String guess = dis.readUTF();
 		System.out.println("Got guess: " + guess);
+		
+		boolean correct = gamePlay.checkGuess(player, guess);
 
 		// Send guess back to each player
 		for (Player p : gamePlay.getPlayers()) {
 			DataOutputStream dos = new DataOutputStream(p.getOutputStream());
-			if (gamePlay.checkGuess(player, guess)) {
+			if (correct) {
 				dos.writeByte(Protocol.GUESS_ACK);
 			} else {
 				dos.writeByte(Protocol.GUESS_NAK);
 			}
+			dos.writeUTF(player.getPlayerName());
 			dos.writeUTF(guess);
 			dos.writeByte(Protocol.END);
 		}

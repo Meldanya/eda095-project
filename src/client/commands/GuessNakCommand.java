@@ -18,11 +18,12 @@ public class GuessNakCommand implements Command {
 
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
+		final String user = dis.readUTF();
 		final String word = dis.readUTF();
 		dis.readByte();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				GuessPanel.output(word + " was an incorrect guess");
+				GuessPanel.output(user + " guessed " + word + ". Incorrect guess!");
 			}
 		});
 		

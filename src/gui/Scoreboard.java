@@ -23,6 +23,7 @@ public class Scoreboard extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		removeAll();
+		validate();
 		Map<String, Integer> map = Scores.getInstance().getScores();
 		for (Entry<String, Integer> entry : map.entrySet()) {
 			String str = entry.getKey() + ": " + entry.getValue() + " points";

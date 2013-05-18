@@ -14,6 +14,9 @@ import client.PictureWrapper;
 public class GuessPanel extends JPanel {
 	
 	private static JTextArea output = new JTextArea(4, 40);
+	private static JTextField textField = new JTextField(10);
+	private static GuessButton gb = null;
+	
 	private CommunicationMonitor cm;
 	
 	public GuessPanel(CommunicationMonitor cm) {
@@ -21,8 +24,7 @@ public class GuessPanel extends JPanel {
 		output.setEditable(false);
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BorderLayout());
-		JTextField textField = new JTextField(10);
-		GuessButton gb = new GuessButton(textField, cm);
+		gb = new GuessButton(textField, cm);
 		
 		textField.addActionListener(gb);
 		
@@ -33,6 +35,17 @@ public class GuessPanel extends JPanel {
 		setLayout(new BorderLayout());
 		add(new JScrollPane(output), BorderLayout.CENTER);
 		add(bottom, BorderLayout.SOUTH);
+	}
+	
+	public static void disableGuessing() {
+		gb.setEnabled(false);
+		textField.setText("");
+		textField.setEnabled(false);
+	}
+	
+	public static void enableGuessing() {
+		gb.setEnabled(true);
+		textField.setEnabled(true);
 	}
 	
 	public static void output(String text) {

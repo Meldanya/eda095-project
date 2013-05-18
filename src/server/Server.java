@@ -16,6 +16,7 @@ public class Server {
 
 	public void run() throws IOException, InterruptedException {
 		int numPlayer = 0;
+		new Thread(new GameRunner(gamePlay)).start();
 		while(true) {
 			Socket client = serversocket.accept();
 			Player player = new Player(client, gamePlay);
