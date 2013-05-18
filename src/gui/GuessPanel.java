@@ -1,27 +1,29 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 import client.CommunicationMonitor;
-import client.PictureWrapper;
 
 public class GuessPanel extends JPanel {
 	
-	private static JTextArea output = new JTextArea(4, 40);
 	private static JTextField textField = new JTextField(10);
+	private static JTextPane textPane = new JTextPane();
 	private static GuessButton gb = null;
 	
-	private CommunicationMonitor cm;
-	
 	public GuessPanel(CommunicationMonitor cm) {
-		this.cm = cm;
-		output.setEditable(false);
+	
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new BorderLayout());
 		gb = new GuessButton(textField, cm);
@@ -33,7 +35,13 @@ public class GuessPanel extends JPanel {
 		bottom.add(textField, BorderLayout.CENTER);
 		
 		setLayout(new BorderLayout());
-		add(new JScrollPane(output), BorderLayout.CENTER);
+
+		textPane.setPreferredSize(new Dimension(4, 40));
+		textPane.setEditable(false);
+		JScrollPane jsp = new JScrollPane(textPane);
+		jsp.setPreferredSize(new Dimension(100, 70));
+
+		add(jsp, BorderLayout.CENTER);
 		add(bottom, BorderLayout.SOUTH);
 	}
 	
@@ -48,8 +56,34 @@ public class GuessPanel extends JPanel {
 		textField.setEnabled(true);
 	}
 	
+	
+	
 	public static void output(String text) {
-		output.append(text + "\n");
-		output.setCaretPosition(output.getText().length() - 1);
+	     outputColored(text + "\n", Color.BLACK);
 	}
+	
+	public static void outputRed(String text) {
+		outputColored(text + "\n", Color.RED);
+	}
+	
+	public static void outputGreen(String text) {
+		outputColored(text + "\n", Color.GREEN);
+	}
+	
+	private static void outputColored(String text, Color c) {
+		StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        textPane.setEditable(true);
+        int len = textPane.getDocument().getLength();
+        textPane.setCaretPosition(len);
+        textPane.setCharacterAttributes(aset, false);
+        textPane.replaceSelection(text);
+        textPane.setEditable(false);
+	}
+	
+	
 }

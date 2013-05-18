@@ -21,7 +21,7 @@ public class ScoreCounter implements Callback {
 	}
 	
 	public void output() {
-		GuessPanel.output("Current score is " + score + " points.");
+		//GuessPanel.output("Current score is " + score + " points.");
 	}
 
 }

@@ -23,7 +23,7 @@ public class GuessAckCommand implements Command {
 		dis.readByte();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				GuessPanel.output(user + " guessed " + word + ". Correct guess!");	
+				GuessPanel.outputGreen(user + " guessed " + word + ". Correct guess!");	
 			}
 		});
 	}

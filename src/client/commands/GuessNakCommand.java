@@ -23,7 +23,7 @@ public class GuessNakCommand implements Command {
 		dis.readByte();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				GuessPanel.output(user + " guessed " + word + ". Incorrect guess!");
+				GuessPanel.outputRed(user + " guessed " + word + ". Incorrect guess!");
 			}
 		});
 		
