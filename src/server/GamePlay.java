@@ -108,4 +108,12 @@ public class GamePlay {
 
 		return correct;
 	}
+
+	public synchronized String getDrawer() {
+		return drawer.getPlayerName();
+	}
+
+	public synchronized int getScore() {
+		return currentScore;
+	}
 }

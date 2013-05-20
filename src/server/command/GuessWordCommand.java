@@ -25,11 +25,16 @@ public class GuessWordCommand extends Command {
 			DataOutputStream dos = new DataOutputStream(p.getOutputStream());
 			if (correct) {
 				dos.writeByte(Protocol.GUESS_ACK);
+				dos.writeUTF(player.getPlayerName());
+				dos.writeUTF(gamePlay.getDrawer());
+				dos.writeUTF(guess);
+				dos.writeShort(gamePlay.getScore());
 			} else {
 				dos.writeByte(Protocol.GUESS_NAK);
+				dos.writeUTF(player.getPlayerName());
+				dos.writeUTF(guess);
 			}
-			dos.writeUTF(player.getPlayerName());
-			dos.writeUTF(guess);
+			
 			dos.writeByte(Protocol.END);
 		}
 	}
