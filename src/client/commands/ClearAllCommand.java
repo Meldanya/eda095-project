@@ -24,7 +24,6 @@ public class ClearAllCommand implements Command {
 	public void send(DataOutputStream dos) throws IOException {
 		dos.writeByte(Protocol.CMD_CLEAR_ALL);
 		dos.writeByte(Protocol.END);
-		System.out.println("sending clearallcmd");
 	}
 
 	@Override

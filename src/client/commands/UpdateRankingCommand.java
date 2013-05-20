@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.SwingUtilities;
+
 import model.Scores;
 
 public class UpdateRankingCommand implements Command {
@@ -24,13 +26,18 @@ public class UpdateRankingCommand implements Command {
 			throws IOException {
 		short numPlayers = dis.readShort();
 		
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		final Map<String, Integer> map = new HashMap<String, Integer>();
 		for (int i = 0; i < numPlayers; i++) {
 			String name = dis.readUTF();
 			int score = dis.readInt();
 			map.put(name, score);
 		}
-		Scores.getInstance().setScore(map);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Scores.getInstance().setScore(map);
+			}
+		});
+		
 		
 		dis.readByte();
 	}

@@ -17,7 +17,7 @@ public class Protocol {
 	public static final byte CMD_UNDO            = 24;
 	public static final byte CMD_CLEAR_ALL       = 25;
 	public static final byte CMD_SET_THICKNESS   = 26;
-	public static final byte CMD_UPDATE_RANKING  = 27;
+	public static final byte CMD_UPDATE_RANKING  = 27;	
 
 	public static final byte END                 = 30;
 }

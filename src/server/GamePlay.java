@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import common.IntervalThread;
+
 public class GamePlay {
 	public static final int NUM_PLAYERS  = 4;	/* The number of players in a game */
 	public static final int DRAWING_TIME = 60;	/* Drawing time in seconds */
@@ -11,7 +13,10 @@ public class GamePlay {
 	private String word;
 	private boolean gameEnded;
 	private Player drawer;
+	private int currentScore;
 
+	private IntervalThread timer;
+	
 	public GamePlay() {
 		this.players = new HashSet<Player>();
 	}
@@ -34,6 +39,7 @@ public class GamePlay {
 
 	public synchronized void startGame(List<String> wordList) {
 		gameEnded = false;
+		currentScore = 100;
 		while (countClients() < GamePlay.NUM_PLAYERS) {
 			try {
 				wait();
@@ -53,6 +59,7 @@ public class GamePlay {
 				this.drawer = p;
 			}
 		}
+		startTimer();
 		
 		while (!gameEnded) {
 			try {
@@ -62,12 +69,31 @@ public class GamePlay {
 			}
 		}
 	}
+	
+	public synchronized void startTimer() {
+		System.out.println("Starting timer");
+		timer = new IntervalThread(60 * 1000, 10 * 1000, new ScoreCounter(this));
+		timer.start();
+	}
+	
+	public synchronized void timerExpired() {
+		gameEnded = true;
+		notifyAll();
+	}
+	
+	public synchronized void decreaseScore() {
+		currentScore -= 10;
+	}
 
 	private synchronized void endGame(Player winner) {
-		gameEnded = true;
-		winner.incrementScore(100);	// TODO: award correct amount of points
-		drawer.incrementScore(100);
-		notifyAll();
+		// Game can end by timer expiration in which case no points should be awarded
+		if (!gameEnded) {
+			timer.stopCalling();
+			gameEnded = true;
+			winner.incrementScore(currentScore);
+			drawer.incrementScore(currentScore);
+			notifyAll();
+		}
 	}
 
 	public synchronized int countClients() {

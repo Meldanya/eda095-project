@@ -6,7 +6,9 @@ import java.util.Set;
 
 import server.GamePlay;
 import server.Player;
+import server.ScoreCounter;
 
+import common.IntervalThread;
 import common.Protocol;
 
 public class DrawingStartedCommand extends Command {

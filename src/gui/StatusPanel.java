@@ -18,6 +18,7 @@ public class StatusPanel extends JPanel {
 		setLayout(new FlowLayout());
 		
 		add(new ThicknessSlider(p));
+		add(new ClockPanel());
 	}
 
 }

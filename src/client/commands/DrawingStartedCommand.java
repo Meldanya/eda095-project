@@ -4,13 +4,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import client.IntervalThread;
-import client.ScoreCounter;
+import client.TimerCountdown;
+
+import common.IntervalThread;
 
 
 
 public class DrawingStartedCommand implements Command {
 	
+	private static IntervalThread it;
 
 	@Override
 	public void send(DataOutputStream dos) throws IOException {
@@ -20,7 +22,13 @@ public class DrawingStartedCommand implements Command {
 
 	@Override
 	public void perform(DataInputStream dis) throws IOException {
-		new IntervalThread(dis.readShort() * 1000, 10000, new ScoreCounter(100, 10)).start();
+		if (it != null) {
+			it.stopCalling();
+		}
+		short time = dis.readShort();
+		it = new IntervalThread(time * 1000, 1000, new TimerCountdown(time));
+		it.start();
+		
 		dis.readByte();
 	}
 
