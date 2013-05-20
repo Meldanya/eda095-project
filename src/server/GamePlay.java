@@ -2,6 +2,7 @@ package server;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import common.IntervalThread;
@@ -14,11 +15,13 @@ public class GamePlay {
 	private boolean gameEnded;
 	private Player drawer;
 	private int currentScore;
+	private int roundRobin;
 
 	private IntervalThread timer;
 	
 	public GamePlay() {
 		this.players = new HashSet<Player>();
+		roundRobin = 0;
 	}
 
 	public synchronized Set<Player> getPlayers() {
@@ -38,6 +41,9 @@ public class GamePlay {
 	}
 
 	public synchronized void startGame(List<String> wordList) {
+		if (wordList.isEmpty()) {
+			// TODO: do something.... end game?
+		}
 		gameEnded = false;
 		currentScore = 100;
 		while (countClients() < GamePlay.NUM_PLAYERS) {
@@ -47,19 +53,22 @@ public class GamePlay {
 				e.printStackTrace();
 			}
 		}
-		
-		word = wordList.get(0); // TODO: Randomize from wordList and remove used word
-		int drawer = (int) Math.round(Math.random() * (NUM_PLAYERS - 1));
+		Random random = new Random();
+		int wordIndex = random.nextInt(wordList.size());
+		word = wordList.get(wordIndex);
+		wordList.remove(wordIndex);
+		System.out.println("Next word is " + word);
 		System.out.println("Drawer: " + drawer);
 		int i = 0;
 		for (Player p : players) {
-			p.setDrawing((i++) == drawer);
+			p.setDrawing((i++) == roundRobin);
 			p.startGame(word);
 			if (p.isDrawing()) {
 				this.drawer = p;
 			}
 		}
 		startTimer();
+		roundRobin = (roundRobin + 1) % NUM_PLAYERS;
 		
 		while (!gameEnded) {
 			try {

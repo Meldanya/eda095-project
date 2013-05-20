@@ -18,20 +18,24 @@ public class GuessWordCommand extends Command {
 		String guess = dis.readUTF();
 		System.out.println("Got guess: " + guess);
 		
+		int score = gamePlay.getScore();
 		boolean correct = gamePlay.checkGuess(player, guess);
-
+		
+		String playername = player.getPlayerName();
+		String drawer = gamePlay.getDrawer();
+		
 		// Send guess back to each player
 		for (Player p : gamePlay.getPlayers()) {
 			DataOutputStream dos = new DataOutputStream(p.getOutputStream());
 			if (correct) {
 				dos.writeByte(Protocol.GUESS_ACK);
-				dos.writeUTF(player.getPlayerName());
-				dos.writeUTF(gamePlay.getDrawer());
+				dos.writeUTF(playername);
+				dos.writeUTF(drawer);
 				dos.writeUTF(guess);
-				dos.writeShort(gamePlay.getScore());
+				dos.writeShort(score);
 			} else {
 				dos.writeByte(Protocol.GUESS_NAK);
-				dos.writeUTF(player.getPlayerName());
+				dos.writeUTF(playername);
 				dos.writeUTF(guess);
 			}
 			

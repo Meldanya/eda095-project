@@ -88,6 +88,7 @@ public class Player extends Thread {
 				Command.create(this, gamePlay).handle();
 			} catch (IOException e) {
 				interrupt();
+				gamePlay.getPlayers().remove(this);
 				System.out.println("Client disconnected");
 			}
 		}

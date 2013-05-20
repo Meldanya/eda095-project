@@ -11,6 +11,7 @@ import common.Protocol;
 public abstract class Command {
 	protected Player player;
 	protected GamePlay gamePlay;
+	private static byte lastCommand = 0;
 
 	public void set(Player player, GamePlay g) {
 		this.player = player;
@@ -22,6 +23,7 @@ public abstract class Command {
 		DataInputStream dis = new DataInputStream(player.getInputStream());
 		byte b = dis.readByte();
 		System.out.println("Got command: " + b);
+		System.out.println("Previous command: " + lastCommand);
 		switch (b) {
 		case Protocol.CMD_SET_COLOR:
 			command = new ColorCommand();
@@ -54,7 +56,7 @@ public abstract class Command {
 		}
 
 		command.set(player, gamePlay);
-
+		lastCommand = b;
 		return command;
 	}
 
