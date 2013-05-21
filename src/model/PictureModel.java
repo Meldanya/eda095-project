@@ -17,15 +17,15 @@ public class PictureModel extends Observable implements Picture {
 		setThickness(3*6);
 	}
 	
-	public void setColor(Color color) {
+	public synchronized void setColor(Color color) {
 		pen.setColor(color);
 	}
 	
-	public void newLine() {
+	public synchronized void newLine() {
 		segments.add(new LineSegment(pen.getColor(), pen.getThickness()));
 	}
 	
-	public void addPoint(Point p) {
+	public synchronized void addPoint(Point p) {
 		if (segments.size() > 0) {
 			segments.get(segments.size() - 1).addPoint(p);
 		}
@@ -33,19 +33,19 @@ public class PictureModel extends Observable implements Picture {
 		notifyObservers();
 	}
 	
-	public void draw(Graphics g) {		
+	public synchronized void draw(Graphics g) {		
 		for (LineSegment ls : segments) {
 			ls.draw(g);
 		}
 	}
 
-	public void clear() {
+	public synchronized void clear() {
 		segments.clear();
 		setChanged();
 		notifyObservers();
 	}
 
-	public void undo() {
+	public synchronized void undo() {
 		if (segments.size() > 0) {
 			segments.remove(segments.size() - 1);
 			setChanged();
@@ -53,11 +53,11 @@ public class PictureModel extends Observable implements Picture {
 		}
 	}
 	
-	public Pen getPen() {
+	public synchronized Pen getPen() {
 		return pen;
 	}
 
-	public void setThickness(int i) {
+	public synchronized void setThickness(int i) {
 		pen.setThickness(i);
 	}
 	

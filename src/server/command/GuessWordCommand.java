@@ -25,6 +25,7 @@ public class GuessWordCommand extends Command {
 		String drawer = gamePlay.getDrawer();
 		
 		// Send guess back to each player
+		
 		for (Player p : gamePlay.getPlayers()) {
 			DataOutputStream dos = new DataOutputStream(p.getOutputStream());
 			if (correct) {
@@ -41,6 +42,8 @@ public class GuessWordCommand extends Command {
 			
 			dos.writeByte(Protocol.END);
 		}
+		
+		gamePlay.checkGuessAndEndGame(player, guess);
 	}
 }
 

@@ -58,7 +58,7 @@ public class GamePlay {
 		word = wordList.get(wordIndex);
 		wordList.remove(wordIndex);
 		System.out.println("Next word is " + word);
-		System.out.println("Drawer: " + drawer);
+		
 		int i = 0;
 		for (Player p : players) {
 			p.setDrawing((i++) == roundRobin);
@@ -67,6 +67,7 @@ public class GamePlay {
 				this.drawer = p;
 			}
 		}
+		System.out.println("Drawer: " + this.drawer.getPlayerName());
 		startTimer();
 		roundRobin = (roundRobin + 1) % NUM_PLAYERS;
 		
@@ -110,12 +111,22 @@ public class GamePlay {
 	}
 
 	public synchronized boolean checkGuess(Player p, String guess) {
+		//boolean correct = word.toLowerCase().equals(guess.toLowerCase());
+		/*if (correct && !p.isDrawing()) {	// Cheat protection
+			endGame(p);
+		}*/
+
+		return  word.toLowerCase().equals(guess.toLowerCase());
+	}
+	
+	public synchronized boolean checkGuessAndEndGame(Player p, String guess) {
 		boolean correct = word.toLowerCase().equals(guess.toLowerCase());
 		if (correct && !p.isDrawing()) {	// Cheat protection
-			endGame(p);
+					endGame(p);
 		}
+		
 
-		return correct;
+		return  correct;
 	}
 
 	public synchronized String getDrawer() {
