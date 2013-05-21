@@ -1,5 +1,6 @@
 package server;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +21,7 @@ public class GamePlay {
 	private IntervalThread timer;
 	
 	public GamePlay() {
-		this.players = new HashSet<Player>();
+		this.players = Collections.synchronizedSet(new HashSet<Player>());
 		roundRobin = 0;
 	}
 
