@@ -6,13 +6,14 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 
 import client.CommunicationMonitor;
 
@@ -77,12 +78,18 @@ public class GuessPanel extends JPanel {
         aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
         aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 
-        textPane.setEditable(true);
+        StyledDocument doc = textPane.getStyledDocument();
+        try {
+			doc.insertString(doc.getLength(), text, aset);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         int len = textPane.getDocument().getLength();
         textPane.setCaretPosition(len);
         textPane.setCharacterAttributes(aset, false);
-        textPane.replaceSelection(text);
-        textPane.setEditable(false);
+        
+       
 	}
 	
 	
