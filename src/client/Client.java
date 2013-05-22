@@ -41,7 +41,7 @@ public class Client {
 		inputPanel.add(usernameField);
 		
 		int result = JOptionPane.showConfirmDialog(
-				null, inputPanel,"Server Configuration", 
+				null, inputPanel,"Connection Details", 
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		
 		if (JOptionPane.YES_OPTION == result) {
